@@ -5,9 +5,6 @@ import './Gif.css'
  const Gif = ({gif}) => {
 
     const {title, id, url} = gif
-
-    console.log(gif)
-
     return(
         <div className='Gif'>
             <Link to={`/gif/${id}`} className='Gif-link'>

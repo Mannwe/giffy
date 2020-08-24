@@ -7,11 +7,13 @@ const ListOfGifs = ({gifs}) => {
 
     return <div className='ListOfGifs'>
         {
-        gifs.map(gif =>
-            <Gif
-                key={gif.id}
+        gifs.map(gif =>{
+            const { id } = gif
+            return <Gif
+                key={id}
                 gif={gif}
             />
+            }
         )
         }
     </div>
