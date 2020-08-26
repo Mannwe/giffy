@@ -1,19 +1,23 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef, useCallback} from 'react'
 
-export const useNearScreen = ({ distance = '100px' } = {}) => {
+export const useNearScreen = ({ distance = '100px', externalRef, once = true } = {}) => {
     const [isNearScreen, setShow] = useState(false)
     const fromRef = useRef()
 
     useEffect(() => {
         let observer
+
+        const element = externalRef ? externalRef.current : fromRef.current
         const onChange = (entries, observer) => {
             const el = entries[0]
             if(el.isIntersecting){
                 setShow(true)
                 /* Desconectamos porque una vez está visible el área al que hemos accedido
                    ya no es necesario actualizar el state para hacerla visible */
-                observer.disconnect() 
                 /* observer.unobserve() También se puede usar, y así se puede reutilizar el observer */
+                once && observer.disconnect() 
+            }else{
+                !once && setShow(false)
             }
         }
         
@@ -26,7 +30,7 @@ export const useNearScreen = ({ distance = '100px' } = {}) => {
                 rootMargin: distance
             })
 
-            observer.observe(fromRef.current)
+            if(element) observer.observe(element)
         })
 
         return () => observer && observer.disconnect()
