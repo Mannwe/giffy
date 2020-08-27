@@ -5,13 +5,17 @@ import './styles.css'
 
 const ListOfGifs = ({gifs}) => {
 
+    console.log(gifs)
+
     return <div className='ListOfGifs'>
         {
-        gifs.map(gif =>{
-            const { id } = gif
+        gifs.map(({title, id, url, ...restOfGif}) =>{
             return <Gif
+                id={id}
                 key={id}
-                gif={gif}
+                title={title}
+                url={url}
+                extraInfo={restOfGif}
             />
             }
         )
