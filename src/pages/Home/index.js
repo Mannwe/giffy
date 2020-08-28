@@ -4,6 +4,7 @@ import ListOfGifs from '../../components/ListOfGifs'
 import {useGifs} from '../../hooks/useGifs'
 import TrendingSearches from "../../components/TrendingSearches"
 import SearchForm from 'components/SearchForm'
+import {Helmet} from 'react-helmet'
 
 const Home = () => {
   const [path, pushLocation] = useLocation()
@@ -16,6 +17,9 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Home | Giffy</title>
+      </Helmet>
       <SearchForm onSubmit={handleSubmit} />
       <div className="App-main">
         <div className="App-results">
